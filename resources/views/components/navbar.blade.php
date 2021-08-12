@@ -24,10 +24,12 @@
           <!-- Navbar Menu -->
           <div id="navbarcollapse" class="collapse navbar-collapse">
             <ul class="navbar-nav ml-auto">
-              <li class="nav-item"><a href="index.html" class="nav-link ">Главная</a>
+              <li class="nav-item"><a href="{{ route('news') }}" class="nav-link ">Главная</a>
               </li>
               </li>
-              <li class="nav-item"><a href="post.html" class="nav-link ">Категории</a>
+              <li class="nav-item"><a href="{{ route('categories') }}" class="nav-link ">Категории</a>
+              </li>
+              <li class="nav-item"><a href="{{ route('contacts') }}" class="nav-link ">Контакты</a>
               </li>
               </li>
             </ul>

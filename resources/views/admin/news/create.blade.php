@@ -7,7 +7,7 @@
 
 </div>
 
-<div class="row">
+<!--<div class="row">
     <form method="post" class="col-sm-12">
 
         <div class="form-group">
@@ -20,5 +20,5 @@
             Сохранить
         </button>
     </form>
-</div>
+</div> -->
 @endsection

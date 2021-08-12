@@ -33,14 +33,11 @@
   <div class="container">
     <div class="row">
 
-          @yield('content')
-        
-      <aside class="col-lg-4">
+      @yield('content')
 
-        <!-- Widget [Categories Widget]-->
-        <x-categorieswidget></x-categorieswidget>
+      <!-- Widget [Widget]-->
+      @if (!isset($widget))<x-widget></x-widget> @endif
 
-      </aside>
     </div>
   </div>
   <!-- Page Footer-->

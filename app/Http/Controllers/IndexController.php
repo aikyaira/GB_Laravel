@@ -11,4 +11,5 @@ class IndexController extends Controller
         //show news list
         return view('index');
     }
+
 }
