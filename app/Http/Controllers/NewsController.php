@@ -10,19 +10,19 @@ class NewsController extends Controller
     {
         //show news list
         return view('news.index', [
-            'news' => $this->newsList
+            'news' => $this->getNewsList()
         ]);
     }
 
     public function show(int $id)
     {
 
-        if (empty($this->getNewsElement($id))) {
+        if (empty($this->getNewsItem($id))) {
             abort(404);
         }
 
         return view('news.show', [
-            'news' => $this->getNewsElement($id)
+            'news' => $this->getNewsItem($id)
         ]);
     }
 }

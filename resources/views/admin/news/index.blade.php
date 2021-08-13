@@ -36,13 +36,13 @@
                 <tbody>
                     @foreach( $newsList as $news )
                     <tr>
-                        <td>{{ $news['id'] }}</td>
+                        <td>{{ $news->id }}</td>
                         <td>{{ now()->format('d-m-Y H:i') }}</td>
-                        <td>{{ $news['title'] }}</td>
-                        <td>{{ $news['description'] }}</td>
-                        <td>{{ $news['categoryid'] }}</td>
+                        <td>{{ $news->title }}</td>
+                        <td>{{ $news->description }}</td>
+                        <td>{{ $news->category_id }}</td>
                         <td>
-                            <a href="{{ route('admin.news.edit', ['news' => $news['id']]) }}" class="btn btn-info btn-circle btn-sm">
+                            <a href="{{ route('admin.news.edit', ['news' => $news->id]) }}" class="btn btn-info btn-circle btn-sm">
                                 <i class="fas fa-pen"></i>
                             </a>
                             <a href="#" class="btn btn-danger btn-circle btn-sm">

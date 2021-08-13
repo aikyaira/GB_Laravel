@@ -30,6 +30,7 @@ Route::resource('/order', WidgetFormController::class)->name('index', 'order');
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::resource('categories', AdminCategoryController::class);
     Route::resource('news', AdminNewsController::class);
+    
 });
 
 Route::group(['prefix' => 'news'], function () {

@@ -8,20 +8,19 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        //show categories list
         return view('categories.index', [
-            'categories' => $this->categoriesList
+            'categories' => $this->getCategoriesList()
         ]);
     }
     public function show(int $id)
     {
-        if (empty($this->getCategory($id))) {
+        if (empty($this->getCategoryItem($id))) {
             abort(404);
         }
-
+        
         return view('categories.show', [
-            'category' => $this->getCategory($id),
-            'newsList' => $this->getNewsList($id)
+            'categoryName' => $this->getCategoryItemName($id),
+            'newsList' => $this->getCategoryItem($id),
         ]);
     }
 }

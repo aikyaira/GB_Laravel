@@ -1,22 +1,22 @@
 @extends('layouts.main')
-@section('title') $category['name'] - @parent @stop
+@section('title') {{$categoryName->title}} - @parent @stop
 @section('content')
 <!-- Latest Posts -->
 <main class="posts-listing col-lg-8">
-<h1>{{ $category['name'] }}</h1>
+    <h1>{{ $categoryName->title }}</h1>
     <div class="container">
         <div class="row">
             @forelse ($newsList as $n)
             <!-- post -->
             <div class="post col-xl-6">
-                <div class="post-thumbnail"><a href="post.html"><img src="https://picsum.photos/350/233?random={{ $n['id'] }}" alt="{{ $n['title'] }}" class="img-fluid"></a></div>
+                <div class="post-thumbnail"><a href="post.html"><img src="https://picsum.photos/350/233?random={{ $n->id }}" alt="{{ $n->title }}" class="img-fluid"></a></div>
                 <div class="post-details">
                     <div class="post-meta d-flex justify-content-between">
                         <div class="date meta-last">{{ now()->format('d M | Y') }}</div>
-                    </div><a href="{{ route('news.show', ['id'=>$n['id']]) }}">
-                        <h3 class="h4">{{ $n['title'] }}</h3>
+                    </div><a href="{{ route('news.show', ['id'=>$n->id]) }}">
+                        <h3 class="h4">{{ $n->title }}</h3>
                     </a>
-                    <p class="text-muted">{{ $n['description'] }}</p>
+                    <p class="text-muted">{{ $n->description }}</p>
                     <footer class="post-footer d-flex align-items-center"><a href="#" class="author d-flex align-items-center flex-wrap">
                             <div class="avatar"><img src="{{ asset('img/avatar-3.jpg') }}" alt="..." class="img-fluid"></div>
                             <div class="title"><span>Admin</span></div>
@@ -38,7 +38,7 @@
                 <li class="page-item"><a href="#" class="page-link"> <i class="fa fa-angle-right"></i></a></li>
             </ul>
         </nav>
-        <a  class="btn btn-primary" href="{{ route('categories') }}">Назад</a>
+        <a class="btn btn-primary" href="{{ route('categories') }}">Назад</a>
     </div>
 </main>
 @endsection

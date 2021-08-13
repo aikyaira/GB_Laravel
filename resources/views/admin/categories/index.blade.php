@@ -18,6 +18,7 @@
                         <th>Id</th>
                         <th>Дата добавления</th>
                         <th>Название</th>
+                        <th>Описание</th>
                         <th width="2%">Управление</th>
                     </tr>
                 </thead>
@@ -26,17 +27,19 @@
                         <th>Id</th>
                         <th>Дата добавления</th>
                         <th>Название</th>
+                        <th>Описание</th>
                         <th width="2%">Управление</th>
                     </tr>
                 </tfoot>
                 <tbody>
                     @foreach( $categoriesList as $category )
                     <tr>
-                        <td>{{ $category['id'] }}</td>
-                        <td>{{ now()->format('d-m-Y H:i') }}</td>
-                        <td>{{ $category['name'] }}</td>
+                        <td>{{ $category->id }}</td>
+                        <td>{{ now()->format('d-m-Y H:i') }}</td>                        
+                        <td>{{ $category->title }}</td>
+                        <td>{{ $category->description }}</td>
                         <td>
-                            <a href="{{ route('admin.categories.edit', ['category' => $category['id']]) }}" class="btn btn-info btn-circle btn-sm">
+                            <a href="{{ route('admin.categories.edit', ['category' => $category->id]) }}" class="btn btn-info btn-circle btn-sm">
                                 <i class="fas fa-pen"></i>
                             </a>
                             <a href="#" class="btn btn-danger btn-circle btn-sm">

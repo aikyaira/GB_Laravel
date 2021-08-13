@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
@@ -15,7 +16,7 @@ class CategoryController extends Controller
     public function index()
     {
         return view("admin.categories.index", [
-            "categoriesList"=> $this->categoriesList
+            "categoriesList"=> $this->getCategoriesList()
         ]);
     }
 
@@ -37,7 +38,14 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        DB::table('categories')->insert([
+            'title' => $request->input('title'),
+            'description' => $request->input('description')
+        ]);
+
+        return view("admin.categories.index", [
+            "categoriesList" => $this->getCategoriesList()
+        ]);
     }
 
     /**
@@ -82,6 +90,6 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+
     }
 }

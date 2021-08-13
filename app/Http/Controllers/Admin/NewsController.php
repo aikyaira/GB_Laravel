@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class NewsController extends Controller
 {
@@ -15,7 +16,7 @@ class NewsController extends Controller
     public function index()
     {
         return view("admin.news.index", [
-            "newsList"=> $this->newsList
+            "newsList" => $this->getNewsList()
         ]);
     }
 
@@ -26,7 +27,9 @@ class NewsController extends Controller
      */
     public function create()
     {
-        return view("admin.news.create");
+        return view("admin.news.create", [
+            "categoriesList" => $this->getCategoriesList()
+        ]);
     }
 
     /**
@@ -37,7 +40,15 @@ class NewsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        DB::table('news')->insert([
+            'title' => $request->input('title'),
+            'category_id' => $request->input('category'),
+            'description' => $request->input('description')
+        ]);
+
+        return view("admin.news.index", [
+            "newsList" => $this->getNewsList()
+        ]);
     }
 
     /**
@@ -82,6 +93,5 @@ class NewsController extends Controller
      */
     public function destroy($id)
     {
-        //
     }
 }

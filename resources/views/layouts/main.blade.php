@@ -29,7 +29,7 @@
     <!-- Main Navbar-->
     <x-navbar></x-navbar>
   </header>
-  <img src="https://picsum.photos/1920/400?random=999" class="img-fluid" alt="...">
+  <img src="{{ asset('img/bg.jpg') }}" class="img-fluid" alt="...">
   <div class="container">
     <div class="row">
 
