@@ -14,7 +14,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-       return response("Список категорий");
+        return view("admin.categories.index", [
+            "categoriesList"=> $this->categoriesList
+        ]);
     }
 
     /**
@@ -24,7 +26,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view("admin.categories.create");
     }
 
     /**
