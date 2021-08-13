@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Route;
+
 class WidgetFormController extends Controller
 {
     /**
@@ -37,14 +38,8 @@ class WidgetFormController extends Controller
     {
         $content = 'Сообщение от ' . $request->input('name') . ' c email ' . $request->input('email') . ' и телефоном ' . $request->input('phone') . ', со следующим текстом:' . $request->input('text');
         Storage::disk('local')->append('orderform.txt', $content);
-
-        /* не додумалась, как еще можно перенаправить на тот же адрес, 
-        но только, чтобы у виджета появилось сообщение о том, 
-        что все успешно отправилось, поэтому сделала так.*/
-
-        $url =$request->headers->get('referer');
-        return redirect($url);
-
+        $url = $request->headers->get('referer');
+        return redirect($url)->with('success', 'Спасибо, Ваше сообщение отправлено!');
     }
 
     /**
