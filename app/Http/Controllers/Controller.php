@@ -6,108 +6,38 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Facades\DB;
 
 class Controller extends BaseController
 {
-    protected $categoriesList = [
-        [
-            'id' => 1,
-            'name' => 'Category 1'
-        ],
-        [
-            'id' => 2,
-            'name' => 'Category 2'
-        ],
-        [
-            'id' => 3,
-            'name' => 'Category 3'
-        ]
-    ];
-    protected $newsList = [
-        [
-            'categoryid' => 1,
-            'id' => 1,
-            'title' => 'News 1',
-            'description' => 'Description for News 1'
-        ],
-        [
-            'categoryid' => 1,
-            'id' => 2,
-            'title' => 'News 2',
-            'description' => 'Description for News 2'
-        ],
-        [
-            'categoryid' => 1,
-            'id' => 3,
-            'title' => 'News 3',
-            'description' => 'Description for News 3'
-        ],
-        [
-            'categoryid' => 2,
-            'id' => 4,
-            'title' => 'News 4',
-            'description' => 'Description for News 4'
-        ],
-        [
-            'categoryid' => 2,
-            'id' => 5,
-            'title' => 'News 5',
-            'description' => 'Description for News 5'
-        ],
-        [
-            'categoryid' => 2,
-            'id' => 6,
-            'title' => 'News 6',
-            'description' => 'Description for News 6'
-        ],
-        [
-            'categoryid' => 3,
-            'id' => 7,
-            'title' => 'News 7',
-            'description' => 'Description for News 7'
-        ],
-        [
-            'categoryid' => 3,
-            'id' => 8,
-            'title' => 'News 8',
-            'description' => 'Description for News 8'
-        ],
-        [
-            'categoryid' => 3,
-            'id' => 9,
-            'title' => 'News 9',
-            'description' => 'Description for News 9'
-        ],
-    ];
-    
-    protected function getNewsElement($id)
+
+    protected function getNewsItem($id)
     {
-        foreach ($this->newsList as $n) {
-            if ($n['id'] === $id) {
-                return $n;
-            }
-        }
+        return DB::table('news')->find($id);
     }
 
-    protected function getNewsList($id)
+    protected function getNewsList()
     {
-        $newsList = [];
-        foreach ($this->newsList as $n) {
-            if ($n['categoryid'] === $id) {
-                $newsList[] = $n;
-            }
-        }
-        return $newsList;
+        return DB::table('news')->get();
     }
 
-    protected function getCategory($id)
+    protected function getCategoryItem($id)
+    {
+        $category = DB::table('categories')
+            ->join('news', 'categories.id', '=', 'news.category_id')
+            ->select('news.*', 'categories.title as category_title')
+            ->where('category_id', '=', $id)
+            ->get();
+        return $category;
+    }
+    protected function getCategoryItemName($id)
     {
 
-        foreach ($this->categoriesList as $category) {
-            if ($category['id'] === $id) {
-                return $category;
-            }
-        }
+        return DB::table('categories')->select('title')->find($id);;
+    }
+    protected function getCategoriesList()
+    {
+        return DB::table('categories')->get();
     }
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 }
