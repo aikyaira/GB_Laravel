@@ -6,6 +6,7 @@
     <div class="container">
         <h2 class=" text-center">Контакты</h2>
         <div class="row">
+            
             <form method="post" class="col-sm-6" action="{{ route('contacts.store') }}">
                 @csrf
                 <div class="form-group">
@@ -23,6 +24,7 @@
                 <button type="submit" class="btn btn-primary btn-user btn-block">
                     Сохранить
                 </button>
+                @include('inc.message')
             </form>
             <div class="col-sm-6">
                 <script type="text/javascript" charset="utf-8" async="" src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A1136948425d8b05577029fd80c041eec54906d47a048fce02b1b3855946587e6&amp;width=100%25&amp;height=280&amp;lang=ru_RU&amp;scroll=true"></script>

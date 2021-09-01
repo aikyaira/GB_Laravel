@@ -31,6 +31,8 @@
               </li>
               <li class="nav-item"><a href="{{ route('contacts') }}" class="nav-link ">Контакты</a>
               </li>
+              <li class="nav-item"><a href="{{ route('admin.news.index') }}" class="nav-link ">Админка</a>
+              </li>
               </li>
             </ul>
           </div>

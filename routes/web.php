@@ -8,7 +8,8 @@ use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\WidgetFormController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\NewsController as AdminNewsController;
-
+use App\Http\Controllers\Admin\ContactController as AdminContactController;
+use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,22 +29,23 @@ Route::resource('/contacts', ContactsController::class)->name('index', 'contacts
 Route::resource('/order', WidgetFormController::class)->name('index', 'order');
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
-    Route::resource('categories', AdminCategoryController::class);
-    Route::resource('news', AdminNewsController::class);
-    
+    Route::resource('categories', AdminCategoryController::class)->name('index', 'categories.index');
+    Route::resource('news', AdminNewsController::class)->name('index', 'news.index');
+    Route::resource('contacts', AdminContactController::class)->name('index', 'contacts.index');
+    Route::resource('orders', AdminOrderController::class)->name('index', 'orders.index');
 });
 
 Route::group(['prefix' => 'news'], function () {
     Route::get('/', [NewsController::class, 'index'])
         ->name('news');
-    Route::get('/show/{id}', [NewsController::class, 'show'])
-        ->where('id', '\d+')
+    Route::get('/show/{news}', [NewsController::class, 'show'])
+        ->where('news', '\d+')
         ->name('news.show');
 });
 Route::group(['prefix' => 'categories'], function () {
     Route::get('/', [CategoryController::class, 'index'])
         ->name('categories');
-    Route::get('/show/{id}', [CategoryController::class, 'show'])
+    Route::get('/show/{categories}', [CategoryController::class, 'show'])
         ->where('id', '\d+')
         ->name('categories.show');
 });

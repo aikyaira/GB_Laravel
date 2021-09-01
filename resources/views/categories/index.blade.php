@@ -14,8 +14,8 @@
                 </div>
                 <div>
                     <h3>{{ $item->title }}</h3>
-                    <p>Это пример описания категории</p>
-                    <a href="{{ route('categories.show', ['id' => $item->id]) }}" class="btn btn-primary">
+                    <p>{{ $item->description }}</p>
+                    <a href="{{ route('categories.show', $item) }}" class="btn btn-primary">
                         Показать
                     </a>
                 </div>

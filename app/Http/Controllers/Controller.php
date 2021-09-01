@@ -16,10 +16,6 @@ class Controller extends BaseController
         return DB::table('news')->find($id);
     }
 
-    protected function getNewsList()
-    {
-        return DB::table('news')->get();
-    }
 
     protected function getCategoryItem($id)
     {

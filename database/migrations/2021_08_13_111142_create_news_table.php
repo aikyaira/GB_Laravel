@@ -18,7 +18,8 @@ class CreateNewsTable extends Migration
             $table->foreignId('category_id')->constrained('categories')->onUpdate('cascade')->onDelete('cascade');
             $table->string('title')->comment('Заголовок');
             $table->text('description')->comment('Содержание новости');
-            $table->boolean('is_private')->default(false)->comment('Доступность для неавторизованных');
+            $table->text('author')->comment('Автор');
+            $table->enum('status', ["DRAFT","PUBLISHED","DELETED"])->comment('Статус новости');
             $table->string('image')->nullable();
             $table->timestamps();
 

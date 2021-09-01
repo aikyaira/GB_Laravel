@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Contact;
 use Illuminate\Support\Facades\Storage;
 
 class ContactsController extends Controller
@@ -37,12 +38,23 @@ class ContactsController extends Controller
      */
     public function store(Request $request)
     {
-        $content = 'Сообщение от ' . $request->input('name') . ' c email ' . $request->input('email') . ' и телефоном ' . $request->input('phone') . ', со следующим текстом:' . $request->input('text');
-        Storage::disk('local')->append('contactform.txt', $content);
-        return view('contacts', [
-            'widget' => false,
-            'message'=>'Спасибо, Ваше сообщение принято.'
+        //$value = 'jfFfhf55555kdjd89';
+        //echo preg_replace('/[^0-9]/', '', $value);
+
+        $request->validate([
+            'name' => ['required', 'string'],
+            'phone' => ['required', 'int'],
+            'text' => ['required', 'string']
         ]);
+        $contact = Contact::create(
+            $request->only(['name', 'text', 'phone', 'email', 'created_at' => now('GMT+3')])
+        );
+        if ($contact) {
+
+            return redirect()->route('contacts')
+                ->with('success', 'Сообщение успешно отправлено');
+        }
+        return back()->withInput()->with('error', 'Не удалось отправить сообщение');
     }
 
     /**
@@ -59,10 +71,10 @@ class ContactsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  Contact $contact
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Contact $contact)
     {
         //
     }
@@ -71,10 +83,10 @@ class ContactsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  Contact $contact
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Contact $contact)
     {
         //
     }
@@ -82,10 +94,10 @@ class ContactsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  Contact $contact
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Contact $contact)
     {
         //
     }

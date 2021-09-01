@@ -6,31 +6,25 @@
         <form method="post" class="col-sm-12" action="{{ route('order.store') }}">
             @csrf
             <div class="form-group">
-                <input type="text" class="form-control" id="name" name="name" placeholder="Имя" value="{{ old('name') }}">
+                <input type="text" class="form-control" id="name" name="name" placeholder="Имя"
+                    value="{{ old('name') }}">
             </div>
             <div class="form-group">
-                <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="{{ old('email') }}">
+                <input type="email" class="form-control" id="email" name="email" placeholder="Email"
+                    value="{{ old('email') }}">
             </div>
             <div class="form-group">
-                <input type="tel" class="form-control" id="phone" name="phone" placeholder="Телефон" value="{{ old('phone') }}">
+                <input type="tel" class="form-control" id="phone" name="phone" placeholder="Телефон"
+                    value="{{ old('phone') }}">
             </div>
             <div class="form-group">
-                <textarea class="form-control" id="text" name="text" placeholder="Что вы хотели бы получить?">{{ old('text') }}</textarea>
+                <textarea class="form-control" id="text" name="text"
+                    placeholder="Что вы хотели бы получить?">{{ old('text') }}</textarea>
             </div>
             <button type="submit" class="btn btn-primary btn-user btn-block">
                 Сохранить
             </button>
-            @if(session('success'))
-
-            <div class="alert alert-success d-flex align-items-center" role="alert">
-                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:">
-                    <use xlink:href="#check-circle-fill" />
-                </svg>
-                <div>
-                    {{ session('success') }}
-                </div>
-            </div>
-            @endif
+            @include('inc.message')
         </form>
     </div>
 </aside>

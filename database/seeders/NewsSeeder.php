@@ -28,6 +28,8 @@ class NewsSeeder extends Seeder
                 'category_id' => $faker->numberBetween(1, 5),
                 'title' => $faker->sentence(rand(3, 6)),
                 'description' => $faker->realText(rand(200, 500)),
+                'author' => $faker->name,
+                'status' => "DRAFT",
                 'image' => null
             ];
         }

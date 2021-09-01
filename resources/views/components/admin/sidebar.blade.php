@@ -1,7 +1,7 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
 <!-- Sidebar - Brand -->
-<a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+<a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('news') }}">
     <div class="sidebar-brand-icon rotate-n-15">
         <i class="fas fa-laugh-wink"></i>
     </div>
@@ -20,9 +20,7 @@
 <!-- Divider -->
 <hr class="sidebar-divider">
 <!-- Heading -->
-<div class="sidebar-heading">
-    Addons
-</div>
+
 
 <!-- Nav Item - Pages Collapse Menu -->
 <li class="nav-item">
@@ -38,13 +36,17 @@
     </div>
     
 </li>
-
-<!-- Nav Item - Tables -->
 <li class="nav-item">
-    <a class="nav-link" href="tables.html">
-        <i class="fas fa-fw fa-table"></i>
-        <span>Tables</span></a>
+    <a class="nav-link" href="{{ route('admin.contacts.index') }}">
+        <i class="far fa-fw fa-envelope"></i>
+        <span>Сообщения</span></a>
 </li>
+<li class="nav-item">
+    <a class="nav-link" href="{{ route('admin.orders.index') }}">
+        <i class="fas fa-fw fa-coins"></i>
+        <span>Заказы</span></a>
+</li>
+
 
 <!-- Divider -->
 <hr class="sidebar-divider d-none d-md-block">
