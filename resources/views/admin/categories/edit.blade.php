@@ -19,10 +19,16 @@
                 <input type="text" class="form-control" id="title" name="title" placeholder="Название"
                     value="{{ $category->title }}">
             </div>
+            @error('title')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
             <div class="form-group">
                 <textarea class="form-control" id="description" name="description"
                     placeholder="Описание">{!! $category->description !!}</textarea>
             </div>
+            @error('description')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
             <button href="#" class="btn btn-primary btn-user btn-block">
                 Сохранить
             </button>

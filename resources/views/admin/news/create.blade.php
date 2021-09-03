@@ -20,29 +20,41 @@
                 <input type="text" class="form-control" id="title" name="title" placeholder="Название"
                     value="{{ old('title') }}">
             </div>
+            @error('title')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
             <div class="form-group">
                 <input type="text" class="form-control" id="author" name="author" placeholder="Автор"
                     value="{{ old('author') }}">
             </div>
+            @error('author')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
             <div class="form-group">
                 <select class="form-control" id="category_id" name="category_id" placeholder="Категория">
-                    <option value="0">Выбрать категорию</option>
+                    <option value="">Выбрать категорию</option>
                     @foreach ($categoriesList as $c)
                         <option value="{{ $c->id }}" @if (old('category_id') === $c->id) selected @endif>{{ $c->title }}</option>
                     @endforeach
                 </select>
             </div>
+            @error('category_id')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
             <div class="form-group">
                 <select class="form-control" id="status" name="status" placeholder="Статус">
-                        <option value="DRAFT" @if (old('status') === "DRAFT") selected @endif>DRAFT</option>
-                        <option value="PUBLISHED" @if (old('status') === "PUBLISHED") selected @endif>PUBLISHED</option>
-                        <option value="DELETED" @if (old('status') === "DELETED") selected @endif>DELETED</option>
+                    <option value="DRAFT" @if (old('status') === 'DRAFT') selected @endif>DRAFT</option>
+                    <option value="PUBLISHED" @if (old('status') === 'PUBLISHED') selected @endif>PUBLISHED</option>
+                    <option value="DELETED" @if (old('status') === 'DELETED') selected @endif>DELETED</option>
                 </select>
             </div>
             <div class="form-group">
                 <textarea class="form-control" id="description" name="description"
                     placeholder="Описание"> {{ old('description') }}</textarea>
             </div>
+            @error('description')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
             <button href="#" class="btn btn-primary btn-user btn-block">
                 Сохранить
             </button>

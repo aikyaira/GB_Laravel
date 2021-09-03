@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreOrderRequest;
+use App\Http\Requests\UpdateOrderRequest;
 use App\Models\Order;
 use Illuminate\Http\Request;
 
@@ -36,9 +38,15 @@ class OrderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreOrderRequest $request)
     {
-        //
+        $order = Order::create($request->validated());
+        if ($order) {
+            $url = $request->headers->get('referer');
+            return redirect($url)->with('success', trans('messages.admin.order.store.success'));
+        }
+        
+        return back()->withInput()->with('error', trans('messages.admin.order.store.error'));
     }
 
     /**
@@ -74,23 +82,17 @@ class OrderController extends Controller
      * @param  Order $order
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Order $order)
+    public function update(UpdateOrderRequest $request, Order $order)
     {
-        $request->validate([
-            'name' => ['required', 'string'],
-            'phone' => ['required', 'int'],
-            'text' => ['required', 'string']
-        ]);
 
-        $order = $order->fill($request->only(['name', 'text', 'phone', 'email', 'created_at' => now('GMT+3')]))
-            ->save();
+        $order = $order->fill($request->validated())->save();
 
         if ($order) {
             return redirect()->route('admin.orders.index')
-                ->with('success', 'Заказ изменен успешно');
+                ->with('success', trans('messages.admin.order.update.success'));
         }
 
-        return back()->withInput()->with('error', 'Не удалось измененить заказ');
+        return back()->withInput()->with('error', trans('messages.admin.order.update.error'));
     }
 
     /**

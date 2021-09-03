@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\IndexController;
-use App\Http\Controllers\ContactsController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\WidgetFormController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\NewsController as AdminNewsController;
@@ -25,7 +25,7 @@ Route::get('/', [IndexController::class, 'index']);
 
 Route::get('/index', [IndexController::class, 'index']);
 
-Route::resource('/contacts', ContactsController::class)->name('index', 'contacts');
+Route::resource('/contacts', ContactController::class)->name('index', 'contacts');
 Route::resource('/order', WidgetFormController::class)->name('index', 'order');
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {

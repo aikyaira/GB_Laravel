@@ -66,7 +66,7 @@
 
 
 @endsection
-@push('jsdeletecategories')
+@push('jsdelete')
     <script type="text/javascript">
         $(function() {
             $(".delete").on('click', function() {

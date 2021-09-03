@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreContactRequest;
+use App\Http\Requests\UpdateContactRequest;
 use App\Models\Contact;
 use Illuminate\Http\Request;
 
@@ -37,9 +39,15 @@ class ContactController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreContactRequest $request)
     {
-        //
+        $contact = Contact::create($request->validated());
+        if ($contact) {
+            $url = $request->headers->get('referer');
+            return redirect($url)->with('success', trans('messages.admin.contact.store.success'));
+        }
+        
+        return back()->withInput()->with('error', trans('messages.admin.contact.store.error'));
     }
 
     /**
@@ -75,23 +83,16 @@ class ContactController extends Controller
      * @param  Contact $contact
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Contact $contact)
+    public function update(UpdateContactRequest $request, Contact $contact)
     {
-        $request->validate([
-            'name' => ['required', 'string'],
-            'phone' => ['required', 'int'],
-            'text' => ['required', 'string']
-        ]);
-
-        $contact = $contact->fill($request->only(['name', 'text', 'phone', 'email', 'created_at' => now('GMT+3')]))
-            ->save();
+        $contact = $contact->fill($request->validated())->save();
 
         if ($contact) {
-            return redirect()->route('admin.contacts.index')
-                ->with('success', 'Сообщение изменено успешно');
+            return redirect()->route('admin.orders.index')
+                ->with('success', trans('messages.admin.contact.update.success'));
         }
 
-        return back()->withInput()->with('error', 'Не удалось измененить сообщение');
+        return back()->withInput()->with('error', trans('messages.admin.contact.update.error'));
     }
 
     /**

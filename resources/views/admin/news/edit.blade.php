@@ -22,18 +22,27 @@
                 <input type="text" class="form-control" id="title" name="title" placeholder="Название"
                     value="{{ $news->title }}">
             </div>
+            @error('title')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
             <div class="form-group">
                 <input type="text" class="form-control" id="author" name="author" placeholder="Автор"
                     value="{{ $news->author }}">
             </div>
+            @error('author')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
             <div class="form-group">
                 <select class="form-control" id="category_id" name="category_id" placeholder="Категория">
-                    <option value="0">Выбрать категорию</option>
+                    <option value="">Выбрать категорию</option>
                     @foreach ($categoriesList as $c)
                         <option value="{{ $c->id }}" @if ($news->category_id === $c->id) selected @endif>{{ $c->title }}</option>
                     @endforeach
                 </select>
             </div>
+            @error('category_id')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
             <div class="form-group">
                 <select class="form-control" id="status" name="status" placeholder="Статус">
                     <option value="DRAFT" @if ($news->status === 'DRAFT') selected @endif>DRAFT</option>
@@ -45,6 +54,9 @@
                 <textarea class="form-control" id="description" name="description"
                     placeholder="Описание"> {!! $news->description !!}</textarea>
             </div>
+            @error('description')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
             <button href="#" class="btn btn-primary btn-user btn-block">
                 Сохранить
             </button>
