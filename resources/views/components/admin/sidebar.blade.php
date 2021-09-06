@@ -37,6 +37,11 @@
     
 </li>
 <li class="nav-item">
+    <a class="nav-link" href="{{ route('admin.users.index') }}">
+        <i class="fas fa-fw fa-user"></i>
+        <span>Пользователи</span></a>
+</li>
+<li class="nav-item">
     <a class="nav-link" href="{{ route('admin.contacts.index') }}">
         <i class="far fa-fw fa-envelope"></i>
         <span>Сообщения</span></a>

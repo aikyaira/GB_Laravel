@@ -4,12 +4,15 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\Account\IndexController as AccountController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\WidgetFormController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\NewsController as AdminNewsController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\ContactController as AdminContactController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,11 +31,15 @@ Route::get('/index', [IndexController::class, 'index']);
 Route::resource('/contacts', ContactController::class)->name('index', 'contacts');
 Route::resource('/order', WidgetFormController::class)->name('index', 'order');
 
-Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
-    Route::resource('categories', AdminCategoryController::class)->name('index', 'categories.index');
-    Route::resource('news', AdminNewsController::class)->name('index', 'news.index');
-    Route::resource('contacts', AdminContactController::class)->name('index', 'contacts.index');
-    Route::resource('orders', AdminOrderController::class)->name('index', 'orders.index');
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/account', AccountController::class)->name('account');
+    Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function () {
+        Route::resource('categories', AdminCategoryController::class)->name('index', 'categories.index');
+        Route::resource('news', AdminNewsController::class)->name('index', 'news.index');
+        Route::resource('users', AdminUserController::class)->name('index', 'users.index');
+        Route::resource('contacts', AdminContactController::class)->name('index', 'contacts.index');
+        Route::resource('orders', AdminOrderController::class)->name('index', 'orders.index');
+    });
 });
 
 Route::group(['prefix' => 'news'], function () {

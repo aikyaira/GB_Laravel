@@ -30,7 +30,8 @@ class NewsSeeder extends Seeder
                 'description' => $faker->realText(rand(200, 500)),
                 'author' => $faker->name,
                 'status' => "DRAFT",
-                'image' => null
+                'image' => null,
+                'created_at'=> now()
             ];
         }
         return $data;

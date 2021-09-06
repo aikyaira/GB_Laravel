@@ -26,7 +26,7 @@ class UsersSeeder extends Seeder
                 'name' => $faker->userName(),
                 'email' => $faker->email(),
                 'password'=>$faker->password(4,6),
-                'role'=>$faker->randomElement(['admin' ,'user'])
+                'is_admin'=>0
             ];
         }
         return $data;
