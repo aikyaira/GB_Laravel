@@ -9,6 +9,7 @@
                     @if (session('error'))
                         <div class="alert alert-danger">{{ session('error') }}</div>
                     @endif
+
                     <p>Это кабинет пользователя</p>
                 </div>
                 <div class="col-md-12">

@@ -51,7 +51,11 @@
         <i class="fas fa-fw fa-coins"></i>
         <span>Заказы</span></a>
 </li>
-
+<li class="nav-item">
+    <a class="nav-link" href="{{ route('admin.parcer.index') }}">
+        <i class="fas fa-fw fa-hourglass"></i>
+        <span>Парсинг</span></a>
+</li>
 
 <!-- Divider -->
 <hr class="sidebar-divider d-none d-md-block">

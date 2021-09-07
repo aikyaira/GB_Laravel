@@ -61,6 +61,15 @@
   <script src="{{ asset('vendor/jquery.cookie/jquery.cookie.js') }}"> </script>
   <script src="{{ asset('vendor/@fancyapps/fancybox/jquery.fancybox.min.js') }}"></script>
   <script src="{{ asset('js/front.js') }}"></script>
+  <script>
+    $(document).ready(function(){
+      $('.dropdown-toggle').click(function(){
+        
+        $('#dropdownMenu').slideToggle(300);      
+        return false;
+      });
+    });
+    </script>
 </body>
 
 </html>

@@ -12,6 +12,8 @@ use App\Http\Controllers\Admin\NewsController as AdminNewsController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\ContactController as AdminContactController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
+use App\Http\Controllers\Admin\ParcerController;
+use App\Http\Controllers\SocialController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +37,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/account', AccountController::class)->name('account');
     Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function () {
         Route::resource('categories', AdminCategoryController::class)->name('index', 'categories.index');
+        Route::resource('parcer', ParcerController::class)->name('index', 'parcer.index');
         Route::resource('news', AdminNewsController::class)->name('index', 'news.index');
         Route::resource('users', AdminUserController::class)->name('index', 'users.index');
         Route::resource('contacts', AdminContactController::class)->name('index', 'contacts.index');
@@ -55,4 +58,8 @@ Route::group(['prefix' => 'categories'], function () {
     Route::get('/show/{categories}', [CategoryController::class, 'show'])
         ->where('id', '\d+')
         ->name('categories.show');
+});
+Route::group(['middleware' => 'guest'], function () {
+    Route::get('/init/vkontakte', [SocialController::class, 'init'])->name('vk.init');
+    Route::get('/callback/vkontakte', [SocialController::class, 'callback'])->name('vk.callback');
 });

@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Contracts\ParcerContract;
+use App\Services\ParcerService;
+use App\Contracts\SocialContract;
+use App\Services\SocialService;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,7 +17,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(ParcerContract::class, ParcerService::class);
+        $this->app->bind(SocialContract::class, SocialService::class);
     }
 
     /**

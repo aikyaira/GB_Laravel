@@ -26,6 +26,7 @@ class CategoriesSeeder extends Seeder
             $data[] = [
                 'title' => $faker->word(),
                 'description' => $faker->realText(rand(50, 100)),
+                'created_at' => now()
             ];
         }
         return $data;

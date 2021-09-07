@@ -34,23 +34,51 @@
                 <li class="nav-item"><a href="{{ route('contacts') }}" class="nav-link ">Контакты</a>
                 </li>
                 @auth
-                    <li class="nav-item"><a href="{{ route('account') }}" class="nav-link ">Личный кабинет</a>
-                    </li>
-                    <li class="nav-item"><a href="{{ route('logout') }}"
-                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-                            class="nav-link ">
-                            Выйти
-                        </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST">
-                            @csrf
-                        </form>
+                    <div class="dropdown">
+                        <li class="nav-item">
+                            @if (Auth::user()->avatar)
+                                <img class="dropdown-toggle" src="{{ Auth::user()->avatar }}" alt=""
+                                    style="width:50px;border-radius:25px" />
+                            @else <button class="btn btn-primary btn-sm dropdown-toggle" type="button">
+                                    ЛК
+                                </button>
+                            @endif
+                        </li>
+
+                        <ul class="dropdown-menu" id="dropdownMenu">
+                            <li class="nav-item"><a href="{{ route('account') }}" class="nav-link ">Личный
+                                    кабинет</a>
+                            </li>
+                            <li class="nav-item"><a href="{{ route('logout') }}"
+                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                                    class="nav-link ">
+                                    Выйти
+                                </a>
+                        </ul>
+                    </div>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                        @csrf
+                    </form>
                     </li>
                 @else
-                    <li class="nav-item"><a href="{{ route('login') }}" class="nav-link ">Войти</a>
-                    </li>
-                    <li class="nav-item"><a href="{{ route('register') }}"
-                            class="nav-link ">Зарегистрироваться</a>
-                    </li>
+                    <div class="btn-group">
+                        <button class="btn btn-primary btn-sm dropdown-toggle" type="button">
+                            Войти
+                        </button>
+                        <ul class="dropdown-menu" id="dropdownMenu">
+                            <li class="nav-item"><a href="{{ route('login') }}" class="nav-link ">Войти через
+                                    email</a>
+                            </li>
+                            <li class="nav-item"><a href="{{ route('vk.init') }}" class="nav-link ">Войти через
+                                    VK</a>
+                            </li>
+                            <li class="nav-item"><a href="{{ route('register') }}"
+                                    class="nav-link ">Зарегистрироваться</a>
+                            </li>
+                        </ul>
+                    </div>
+
                 @endauth
             </ul>
         </div>

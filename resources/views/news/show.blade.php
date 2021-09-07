@@ -9,7 +9,7 @@
                 <h1>{{ $news->title }}</i></a></h1>
                 <div class="post-footer d-flex align-items-center flex-column flex-sm-row"><a href="#" class="author d-flex align-items-center flex-wrap">
                         <div class="avatar"><img src="{{ asset('img/avatar-3.jpg') }}" alt="Admin" class="img-fluid"></div>
-                        <div class="title"><span>Admin</span></div>
+                        <div class="title"><span>{{ $news->author }}</span></div>
                     </a>
                 </div>
                 <div class="post-body">
