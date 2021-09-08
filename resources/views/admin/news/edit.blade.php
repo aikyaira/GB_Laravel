@@ -15,8 +15,7 @@
             @csrf
             @method('put')
             <div class="form-group">
-                <input type="text" class="form-control" id="image" name="image" placeholder="Изображение"
-                    value="{{ $news->image }}">
+                <input type="file" class="form-control" id="image" name="image" placeholder="Изображение">
             </div>
             <div class="form-group">
                 <input type="text" class="form-control" id="title" name="title" placeholder="Название"
@@ -63,3 +62,16 @@
         </form>
     </div>
 @endsection
+@push('js')
+    <script src="{{ asset('js/ckeditor/ckeditor.js') }}"></script>
+    <script>
+
+        let options = {
+            filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
+            filebrowserImageUploadUrl: '/laravel-filemanager/upload?type=Images&_token={{ csrf_token() }}',
+            filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
+            filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token={{ csrf_token() }}php'
+        };
+        CKEDITOR.replace('description', options);
+    </script>
+@endpush

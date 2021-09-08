@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -42,13 +43,12 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-        //dd($request->validated());
-        
+
         $category = Category::create($request->validated());
 
         if ($category) {
             return redirect()->route('admin.categories.index')
-            ->with('success', trans('messages.admin.category.store.success'));
+                ->with('success', trans('messages.admin.category.store.success'));
         }
 
         return back()->withInput()->with('error', trans('messages.admin.category.store.error'));
@@ -91,7 +91,7 @@ class CategoryController extends Controller
 
         if ($category) {
             return redirect()->route('admin.categories.index')
-            ->with('success', trans('messages.admin.category.update.success'));
+                ->with('success', trans('messages.admin.category.update.success'));
         }
 
         return back()->withInput()->with('error', trans('messages.admin.category.update.error'));
@@ -105,12 +105,11 @@ class CategoryController extends Controller
      */
     public function destroy(Request $request,  Category $category)
     {
-        if($request->ajax()){
-            try{
+        if ($request->ajax()) {
+            try {
                 $category->delete();
                 return response()->json('ok');
-            }
-            catch (\Exception $e){                
+            } catch (\Exception $e) {
                 return response()->json('error', 400);
             }
         }

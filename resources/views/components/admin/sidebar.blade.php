@@ -52,10 +52,11 @@
         <span>Заказы</span></a>
 </li>
 <li class="nav-item">
-    <a class="nav-link" href="{{ route('admin.parcer.index') }}">
-        <i class="fas fa-fw fa-hourglass"></i>
-        <span>Парсинг</span></a>
+    <a class="nav-link" href="{{ route('admin.resources.index') }}">
+        <i class="fas fa-fw fa-atlas"></i>
+        <span>Ресурсы</span></a>
 </li>
+
 
 <!-- Divider -->
 <hr class="sidebar-divider d-none d-md-block">

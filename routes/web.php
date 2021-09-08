@@ -12,7 +12,8 @@ use App\Http\Controllers\Admin\NewsController as AdminNewsController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\ContactController as AdminContactController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
-use App\Http\Controllers\Admin\ParcerController;
+use App\Http\Controllers\Admin\ResourceController as AdminResourceController;
+use App\Http\Controllers\Admin\ParcerController as AdminParcerController;
 use App\Http\Controllers\SocialController;
 
 /*
@@ -34,10 +35,15 @@ Route::resource('/contacts', ContactController::class)->name('index', 'contacts'
 Route::resource('/order', WidgetFormController::class)->name('index', 'order');
 
 Route::group(['middleware' => 'auth'], function () {
+
     Route::get('/account', AccountController::class)->name('account');
+
     Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function () {
         Route::resource('categories', AdminCategoryController::class)->name('index', 'categories.index');
-        Route::resource('parcer', ParcerController::class)->name('index', 'parcer.index');
+        Route::group(['prefix' => 'resources'], function () {
+            Route::resource('resources', AdminResourceController::class)->name('index', 'resources.index');
+            Route::get('/parce/{resource}', AdminParcerController::class)->where('resource', '\d+')->name('resources.parce');
+        });
         Route::resource('news', AdminNewsController::class)->name('index', 'news.index');
         Route::resource('users', AdminUserController::class)->name('index', 'users.index');
         Route::resource('contacts', AdminContactController::class)->name('index', 'contacts.index');
@@ -46,20 +52,20 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 Route::group(['prefix' => 'news'], function () {
-    Route::get('/', [NewsController::class, 'index'])
-        ->name('news');
-    Route::get('/show/{news}', [NewsController::class, 'show'])
-        ->where('news', '\d+')
-        ->name('news.show');
+    Route::get('/', [NewsController::class, 'index'])->name('news');
+    Route::get('/show/{news}', [NewsController::class, 'show'])->where('news', '\d+')->name('news.show');
 });
+
 Route::group(['prefix' => 'categories'], function () {
-    Route::get('/', [CategoryController::class, 'index'])
-        ->name('categories');
-    Route::get('/show/{categories}', [CategoryController::class, 'show'])
-        ->where('id', '\d+')
-        ->name('categories.show');
+    Route::get('/', [CategoryController::class, 'index'])->name('categories');
+    Route::get('/show/{categories}', [CategoryController::class, 'show'])->where('id', '\d+')->name('categories.show');
 });
+
 Route::group(['middleware' => 'guest'], function () {
     Route::get('/init/vkontakte', [SocialController::class, 'init'])->name('vk.init');
     Route::get('/callback/vkontakte', [SocialController::class, 'callback'])->name('vk.callback');
+});
+
+Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
+    \UniSharp\LaravelFilemanager\Lfm::routes();
 });

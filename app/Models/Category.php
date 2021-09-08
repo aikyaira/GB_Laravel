@@ -9,9 +9,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany as HasMany;
 class Category extends Model
 {
     use HasFactory;
-    protected $table = "categories";
+    
+    protected $table = "categories";protected $primaryKey = 'id';
     protected $fillable = ['title', 'description'];
-
+    protected $allowedFields=['id', 'title', 'description'];
+    protected $guarded = [];
     /**
      * Get all of the news for the Category
      *
@@ -19,6 +21,6 @@ class Category extends Model
      */
     public function news(): HasMany
     {
-        return $this->hasMany(News::class, 'category_id');
+        return $this->hasMany(News::class, 'id','category_id');
     }
 }

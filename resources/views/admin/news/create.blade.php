@@ -13,8 +13,7 @@
         <form method="post" class="col-sm-12" action="{{ route('admin.news.store') }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
-                <input type="text" class="form-control" id="image" name="image" placeholder="Изображение"
-                    value="{{ old('image') }}">
+                <input type="file" class="form-control" id="image" name="image" placeholder="Изображение">
             </div>
             <div class="form-group">
                 <input type="text" class="form-control" id="title" name="title" placeholder="Название"
@@ -61,3 +60,15 @@
         </form>
     </div>
 @endsection
+@push('js')
+    <script src="{{ asset('js/ckeditor/ckeditor.js') }}"></script>
+    <script>
+            let options = {
+                filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
+                filebrowserImageUploadUrl: '/laravel-filemanager/upload?type=Images&_token=',
+                filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
+                filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token='
+        };
+        CKEDITOR.replace('description', options);
+    </script>
+@endpush

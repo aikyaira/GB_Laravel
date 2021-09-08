@@ -40,7 +40,7 @@
                     <tbody>
                         @forelse( $newsList as $news )
                             <tr>
-                                <td>{{ $news->image }}</td>
+                                <td>@if ($news->image)<img src="{{ Storage::disk('public')->url($news->image) }}" alt="" style="width:150px">@endif</td>
                                 <td>@if ($news->updated_at) {{ $news->updated_at->format('d-m-Y H:i') }} @else {{ $news->created_at->format('d-m-Y H:i') }} @endif</td>
                                 <td>{{ $news->title }}</td>
                                 <td>{{ optional($news->category)->title }}</td>

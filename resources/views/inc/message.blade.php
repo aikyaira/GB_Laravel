@@ -3,3 +3,6 @@
 @elseif (session()->has('error'))
     <div class="alert alert-danger">{{ session()->get('error') }}</div>
 @endif
+@if (isset($success))
+<div class="alert alert-success">{{ $success }}</div>
+@endif
