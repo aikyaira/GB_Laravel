@@ -3,7 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreNewsRequest;
+use App\Http\Requests\UpdateNewsRequest;
+use App\Models\Category;
+use App\Models\News;
+use App\Services\UploadedService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class NewsController extends Controller
 {
@@ -14,7 +20,10 @@ class NewsController extends Controller
      */
     public function index()
     {
-        return response("Список новостей");
+        return view("admin.news.index", [
+            "newsList" => News::all(),
+            "categoriesList" => Category::all()
+        ]);
     }
 
     /**
@@ -24,7 +33,9 @@ class NewsController extends Controller
      */
     public function create()
     {
-        //
+        return view("admin.news.create", [
+            "categoriesList" => Category::all()
+        ]);
     }
 
     /**
@@ -33,18 +44,26 @@ class NewsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreNewsRequest $request)
     {
-        //
+
+        $news = News::create($request->validated());
+
+        if ($news) {
+            return redirect()->route('admin.news.index')
+                ->with('success', trans('messages.admin.news.store.success'));
+        }
+
+        return back()->withInput()->with('error', trans('messages.admin.news.store.error'));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  News $news
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(News $news)
     {
         //
     }
@@ -52,34 +71,56 @@ class NewsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  News $news
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(News $news)
     {
-        //
+        return view('admin.news.edit', [
+            'categoriesList' => Category::all(),
+            'news' => $news
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  News $news
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateNewsRequest $request, News $news)
     {
-        //
+        $validated = $request->validated();
+        if ($request->hasFile('image')) {
+            $uploadedService = app(UploadedService::class);
+            $validated['image'] = $uploadedService->fileUpload($request->file('image'));
+        }
+        $news = $news->fill($validated)->save();
+
+        if ($news) {
+            return redirect()->route('admin.news.index')
+                ->with('success', trans('messages.admin.news.update.success'));
+        }
+
+        return back()->withInput()->with('error', trans('messages.admin.news.update.error'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  News $news
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request,  News $news)
     {
-        //
+        if ($request->ajax()) {
+            try {
+                $news->delete();
+                return response()->json('ok');
+            } catch (\Exception $e) {
+                return response()->json('error', 400);
+            }
+        }
     }
 }
