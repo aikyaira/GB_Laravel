@@ -17,7 +17,7 @@
     <div class="container">
         <!-- Navbar Brand -->
         <div class="navbar-header d-flex align-items-center justify-content-between">
-            <!-- Navbar Brand --><a href="index.html" class="navbar-brand">Bootstrap Blog</a>
+            <!-- Navbar Brand --><a href="{{ route('index') }}" class="navbar-brand">Bootstrap Blog</a>
             <!-- Toggle Button-->
             <button type="button" data-toggle="collapse" data-target="#navbarcollapse" aria-controls="navbarcollapse"
                 aria-expanded="false" aria-label="Toggle navigation"
@@ -26,7 +26,7 @@
         <!-- Navbar Menu -->
         <div id="navbarcollapse" class="collapse navbar-collapse">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a href="{{ route('news') }}" class="nav-link ">Главная</a>
+                <li class="nav-item"><a href="{{ route('news') }}" class="nav-link ">Новости</a>
                 </li>
                 </li>
                 <li class="nav-item"><a href="{{ route('categories') }}" class="nav-link ">Категории</a>
@@ -34,16 +34,14 @@
                 <li class="nav-item"><a href="{{ route('contacts') }}" class="nav-link ">Контакты</a>
                 </li>
                 @auth
-                    <div class="dropdown">
-                        <li class="nav-item">
-                            @if (Auth::user()->avatar)
-                                <img class="dropdown-toggle" src="{{ Auth::user()->avatar }}" alt=""
-                                    style="width:50px;border-radius:25px" />
-                            @else <button class="btn btn-primary btn-sm dropdown-toggle" type="button">
-                                    ЛК
-                                </button>
-                            @endif
-                        </li>
+                    <div class="btn-group">
+                        @if (Auth::user()->avatar)
+                            <img class="dropdown-toggle" src="{{ Auth::user()->avatar }}" alt=""
+                                style="width:50px;border-radius:25px" />
+                        @else <button class="btn btn-primary btn-sm dropdown-toggle" type="button">
+                                ЛК
+                            </button>
+                        @endif
 
                         <ul class="dropdown-menu" id="dropdownMenu">
                             <li class="nav-item"><a href="{{ route('account') }}" class="nav-link ">Личный
@@ -55,12 +53,10 @@
                                     Выйти
                                 </a>
                         </ul>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                            @csrf
+                        </form>
                     </div>
-
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST">
-                        @csrf
-                    </form>
-                    </li>
                 @else
                     <div class="btn-group">
                         <button class="btn btn-primary btn-sm dropdown-toggle" type="button">
@@ -70,7 +66,8 @@
                             <li class="nav-item"><a href="{{ route('login') }}" class="nav-link ">Войти через
                                     email</a>
                             </li>
-                            <li class="nav-item"><a href="{{ route('vk.init') }}" class="nav-link ">Войти через
+                            <li class="nav-item"><a href="{{ route('vk.init') }}" class="nav-link ">Войти
+                                    через
                                     VK</a>
                             </li>
                             <li class="nav-item"><a href="{{ route('register') }}"

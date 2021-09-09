@@ -27,9 +27,9 @@ use App\Http\Controllers\SocialController;
 |
 */
 
-Route::get('/', [IndexController::class, 'index']);
+Route::get('/', [IndexController::class, 'index'])->name('index');
 
-Route::get('/index', [IndexController::class, 'index']);
+Route::get('/index', [IndexController::class, 'index'])->name('index');
 
 Route::resource('/contacts', ContactController::class)->name('index', 'contacts');
 Route::resource('/order', WidgetFormController::class)->name('index', 'order');
@@ -58,7 +58,7 @@ Route::group(['prefix' => 'news'], function () {
 
 Route::group(['prefix' => 'categories'], function () {
     Route::get('/', [CategoryController::class, 'index'])->name('categories');
-    Route::get('/show/{categories}', [CategoryController::class, 'show'])->where('id', '\d+')->name('categories.show');
+    Route::get('/show/{category}', [CategoryController::class, 'show'])->where('category', '\d+')->name('categories.show');
 });
 
 Route::group(['middleware' => 'guest'], function () {

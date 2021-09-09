@@ -8,5 +8,5 @@ use Laravel\Socialite\Contracts\User;
 
 interface SocialContract
 {
-    public function saveUser(User $user): string;
+    public function saveUser(User $user);
 }

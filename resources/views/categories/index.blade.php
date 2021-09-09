@@ -7,7 +7,7 @@
         <div class="row">
             @forelse ($categories as $item)
             
-            <div class="col col-md-4 d-flex align-items-start">
+            <div class="col col-md-6 d-flex align-items-start">
                 <div class="icon-square bg-light text-dark flex-shrink-0 me-3">
                     <i class="fa fa-list">
                     </i>

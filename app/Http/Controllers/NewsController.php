@@ -11,12 +11,13 @@ class NewsController extends Controller
     {
         //show news list
         return view('news.index', [
-            'news' => News::all()
+            'news' => News::paginate(18)
         ]);
     }
 
     public function show(News $news)
     {
+
         return view('news.show', [
             'news' => $news
         ]);

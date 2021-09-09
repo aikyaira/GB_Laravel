@@ -7,23 +7,35 @@ namespace App\Services;
 use App\Contracts\SocialContract;
 use Laravel\Socialite\Contracts\User;
 use App\Models\User as Model;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class SocialService implements SocialContract
 {
-    public function saveUser(User $user):string
+    protected function pwdGenerate(): string
     {
-        $currentUser=Model::where('email', $user->getEmail())->first();
-        if($currentUser){
-            $currentUser->name=$user->getName();
-            $currentUser->avatar=$user->getAvatar();
+        $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        return substr(str_shuffle($chars), 0, 8);
+    }
+    public function saveUser(User $user)
+    {
+        $currentUser = Model::whereEmail($user->getEmail())->first();
+        if ($currentUser) {
+            $currentUser->name = $user->getName();
+            $currentUser->avatar = $user->getAvatar();
             $currentUser->save();
-
-            \Auth::loginUsingId($currentUser->id);
-            return route('account');
-        }else{
-            //todo:we can impliment register feature
+            return Auth::loginUsingId($currentUser->id);
+        } else {
+            $password=$this->pwdGenerate();
+            $currentUser = Model::create([
+                'name' => $user->getName(),
+                'email' => $user->getEmail(),
+                'avatar' => $user->getAvatar(),
+                'password'=> Hash::make($password)
+            ]);
+            Auth::loginUsingId($currentUser->id);
+            return redirect()->route('account')->with('message', $password);
         }
-        throw new \Exception("User not found");
-        
+
     }
 }

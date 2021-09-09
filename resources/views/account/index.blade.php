@@ -9,7 +9,10 @@
                     @if (session('error'))
                         <div class="alert alert-danger">{{ session('error') }}</div>
                     @endif
-
+                    @if (session('message'))
+                        <div class="alert alert-success">Пользователь создан с паролем: {{ session()->get('message') }}
+                        </div>
+                    @endif
                     <p>Это кабинет пользователя</p>
                 </div>
                 <div class="col-md-12">
